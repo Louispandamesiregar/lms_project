@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { CourseCard } from "@/components/CourseCard";
 import { db } from "@/db";
 import { courses, categories, users } from "@/db/schema";
