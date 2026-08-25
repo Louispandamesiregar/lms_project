@@ -1,12 +1,38 @@
-import { MOCK_COURSES } from "@/lib/mock-data";
 import CourseDetailClient from "./CourseDetailClient";
+import { db } from "@/db";
+import { courses, categories, users } from "@/db/schema";
+import { eq } from "drizzle-orm";
+import { notFound } from "next/navigation";
 
-export function generateStaticParams() {
-  return MOCK_COURSES.map((course) => ({
-    id: course.id,
-  }));
-}
+export default async function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  
+  const courseResult = await db
+    .select({
+      id: courses.id,
+      title: courses.title,
+      price: courses.price,
+      thumbnailUrl: courses.thumbnailUrl,
+      category: categories.name,
+      instructor: users.name,
+      description: courses.description,
+    })
+    .from(courses)
+    .leftJoin(categories, eq(courses.categoryId, categories.id))
+    .leftJoin(users, eq(courses.instructorId, users.id))
+    .where(eq(courses.id, resolvedParams.id))
+    .limit(1);
 
-export default function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  return <CourseDetailClient params={params} />;
+  if (courseResult.length === 0) {
+    notFound();
+  }
+
+  const course = {
+    ...courseResult[0],
+    thumbnailUrl: courseResult[0].thumbnailUrl ?? '',
+    category: courseResult[0].category ?? 'Tanpa Kategori',
+    instructor: courseResult[0].instructor ?? 'Tidak diketahui',
+  };
+
+  return <CourseDetailClient course={course} />;
 }

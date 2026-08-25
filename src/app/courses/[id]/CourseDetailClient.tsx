@@ -1,22 +1,12 @@
 "use client";
 
-import { use } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { MOCK_COURSES } from "@/lib/mock-data";
-import { useCartStore } from "@/store/cartStore";
+import { Course, useCartStore } from "@/store/cartStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-export default function CourseDetailClient({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
-  const course = MOCK_COURSES.find((c) => c.id === resolvedParams.id);
-  
-  if (!course) {
-    notFound();
-  }
-
+export default function CourseDetailClient({ course }: { course: Course }) {
   const { addCourse, items } = useCartStore();
   const isInCart = items.some((item) => item.id === course.id);
 

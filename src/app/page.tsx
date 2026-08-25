@@ -1,10 +1,27 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MOCK_COURSES } from "@/lib/mock-data";
 import { CourseCard } from "@/components/CourseCard";
+import { db } from "@/db";
+import { courses, categories, users } from "@/db/schema";
+import { desc, eq } from "drizzle-orm";
 
-export default function Home() {
-  const featuredCourses = MOCK_COURSES.slice(0, 3);
+export default async function Home() {
+  const featuredCourses = await db
+    .select({
+      id: courses.id,
+      title: courses.title,
+      price: courses.price,
+      thumbnailUrl: courses.thumbnailUrl,
+      category: categories.name,
+      instructor: users.name,
+    })
+    .from(courses)
+    .leftJoin(categories, eq(courses.categoryId, categories.id))
+    .leftJoin(users, eq(courses.instructorId, users.id))
+    .orderBy(desc(courses.createdAt))
+    .limit(3);
+
+  const categoriesList = ["Seni Musik", "Seni Rupa", "Seni Tari", "Seni Drama", "Seni Sastra"];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -37,7 +54,23 @@ export default function Home() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredCourses.map((course) => (
-            <CourseCard key={course.id} course={course} />
+            <CourseCard 
+              key={course.id} 
+              course={{
+                ...course,
+                thumbnailUrl: course.thumbnailUrl ?? '',
+                category: course.category ?? 'Tanpa Kategori',
+                instructor: course.instructor ?? 'Tidak diketahui',
+              }} 
+            />
+          ))}
+        </div>
+
+        <div className="flex flex-wrap gap-4 mt-8">
+          {categoriesList.map((cat) => (
+            <Badge key={cat} variant="secondary" className="text-lg py-2 px-6 border-2 border-border font-bold hover:bg-primary hover:text-primary-foreground cursor-pointer transition-colors shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
+              {cat}
+            </Badge>
           ))}
         </div>
         

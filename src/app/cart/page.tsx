@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cartStore";
+import { processCheckout } from "./actions";
 import { Button } from "@/components/ui/button";
 
 export default function CartPage() {
@@ -20,29 +22,25 @@ export default function CartPage() {
     return <div className="min-h-screen bg-background p-10 font-bold">Loading Cart...</div>;
   }
 
-  const handleCheckout = () => {
-    // Simulasi checkout untuk prototype Langkah 2
-    setCheckoutStatus("success");
-    clearCart();
-  };
+  const [isProcessing, setIsProcessing] = useState(false);
+  const router = useRouter();
 
-  if (checkoutStatus === "success") {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[70vh] bg-background text-center px-6">
-        <div className="bg-primary text-primary-foreground p-12 border-4 border-border shadow-[8px_8px_0px_0px_rgba(26,26,26,1)] max-w-2xl w-full">
-          <h2 className="text-4xl font-black uppercase mb-4">Checkout Berhasil! 🎉</h2>
-          <p className="text-xl font-medium mb-8">
-            Terima kasih telah mendaftar. Untuk saat ini (Prototype Langkah 2), data checkout belum dikirim ke database.
-          </p>
-          <Link href="/courses">
-            <Button size="lg" className="bg-background text-foreground border-4 border-border shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(26,26,26,1)] rounded-none text-lg font-bold">
-              Kembali ke Katalog
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const handleCheckout = async () => {
+    setIsProcessing(true);
+    try {
+      const courseIds = items.map((i) => i.id);
+      await processCheckout(courseIds);
+      clearCart();
+      router.push("/dashboard");
+    } catch (error: any) {
+      alert(error.message || "Gagal melakukan checkout. Pastikan Anda sudah login.");
+      if (error.message.includes("login")) {
+        router.push("/login");
+      }
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-background pb-20">

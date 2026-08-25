@@ -1,9 +1,27 @@
-import { MOCK_COURSES, MOCK_CATEGORIES } from "@/lib/mock-data";
 import { CourseCard } from "@/components/CourseCard";
 import { Badge } from "@/components/ui/badge";
+import { db } from "@/db";
+import { courses, categories, users } from "@/db/schema";
+import { eq, desc } from "drizzle-orm";
 import Link from "next/link";
 
-export default function CoursesPage() {
+export default async function CoursesPage() {
+  const allCourses = await db
+    .select({
+      id: courses.id,
+      title: courses.title,
+      price: courses.price,
+      thumbnailUrl: courses.thumbnailUrl,
+      category: categories.name,
+      instructor: users.name,
+    })
+    .from(courses)
+    .leftJoin(categories, eq(courses.categoryId, categories.id))
+    .leftJoin(users, eq(courses.instructorId, users.id))
+    .orderBy(desc(courses.createdAt));
+
+  const allCategories = await db.select().from(categories).orderBy(categories.name);
+
   return (
     <div className="flex flex-col min-h-screen bg-background pb-20">
       {/* Header */}
@@ -25,7 +43,7 @@ export default function CoursesPage() {
               <Badge variant="outline" className="border-2 border-border font-bold bg-primary text-primary-foreground rounded-none shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
                 Semua Kategori
               </Badge>
-              {MOCK_CATEGORIES.map((cat) => (
+              {allCategories.map((cat) => (
                 <Badge key={cat.id} variant="outline" className="border-2 border-border font-bold hover:bg-muted rounded-none cursor-pointer">
                   {cat.name}
                 </Badge>
@@ -37,8 +55,16 @@ export default function CoursesPage() {
         {/* Course Grid */}
         <div className="flex-1">
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {MOCK_COURSES.map((course) => (
-              <CourseCard key={course.id} course={course} />
+            {allCourses.map((course) => (
+              <CourseCard 
+                key={course.id} 
+                course={{
+                  ...course,
+                  thumbnailUrl: course.thumbnailUrl ?? '',
+                  category: course.category ?? 'Tanpa Kategori',
+                  instructor: course.instructor ?? 'Tidak diketahui',
+                }} 
+              />
             ))}
           </div>
         </div>
