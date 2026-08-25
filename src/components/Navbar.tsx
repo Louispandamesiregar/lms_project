@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cartStore";
+import { logout } from "@/app/login/actions";
+import type { User } from "@supabase/supabase-js";
 
-export function Navbar() {
+export function Navbar({ user }: { user: User | null }) {
   const [mounted, setMounted] = useState(false);
   const { items } = useCartStore();
 
@@ -34,11 +36,26 @@ export function Navbar() {
             Keranjang {mounted && items.length > 0 && `(${items.length})`}
           </Button>
         </Link>
-        <Link href="/login">
-          <Button className="border-2 border-border shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)] transition-all">
-            Login
-          </Button>
-        </Link>
+        {user ? (
+          <>
+            <Link href="/dashboard">
+              <Button className="border-2 border-border shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)] transition-all">
+                Dasbor
+              </Button>
+            </Link>
+            <form action={logout}>
+              <Button variant="destructive" className="border-2 border-border shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)] transition-all">
+                Keluar
+              </Button>
+            </form>
+          </>
+        ) : (
+          <Link href="/login">
+            <Button className="border-2 border-border shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)] transition-all">
+              Login
+            </Button>
+          </Link>
+        )}
       </div>
     </nav>
   );
