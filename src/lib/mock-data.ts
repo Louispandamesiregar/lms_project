@@ -13,7 +13,7 @@ export const MOCK_COURSES: Course[] = [
     title: "Mastering Vintage Illustration",
     instructor: "Budi Santoso",
     price: 350000,
-    thumbnailUrl: "https://images.unsplash.com/photo-1626040683401-44754a652da2?w=800&q=80",
+    thumbnailUrl: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80",
     category: "Seni Lukis",
   },
   {
@@ -45,7 +45,7 @@ export const MOCK_COURSES: Course[] = [
     title: "Pop Art Painting Techniques",
     instructor: "Maya Anggraeni",
     price: 400000,
-    thumbnailUrl: "https://images.unsplash.com/photo-1549887552-cb1071d3e5ca?w=800&q=80",
+    thumbnailUrl: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=80",
     category: "Seni Lukis",
   },
   {
