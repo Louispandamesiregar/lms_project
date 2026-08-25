@@ -69,9 +69,11 @@ export default async function Home() {
 
         <div className="flex flex-wrap gap-4 mt-8">
           {categoriesList.map((cat) => (
-            <Badge key={cat} variant="secondary" className="text-lg py-2 px-6 border-2 border-border font-bold hover:bg-primary hover:text-primary-foreground cursor-pointer transition-colors shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
-              {cat}
-            </Badge>
+            <Link key={cat} href={`/courses?category=${encodeURIComponent(cat)}`}>
+              <Badge variant="secondary" className="text-lg py-2 px-6 border-2 border-border font-bold hover:bg-primary hover:text-primary-foreground cursor-pointer transition-colors shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] rounded-none">
+                {cat}
+              </Badge>
+            </Link>
           ))}
         </div>
         

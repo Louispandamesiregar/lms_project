@@ -58,15 +58,37 @@ export default async function DashboardPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {purchasedCourses.map((course) => (
-              <CourseCard 
-                key={course.id} 
-                course={{
-                  ...course,
-                  thumbnailUrl: course.thumbnailUrl ?? '',
-                  category: course.category ?? 'Tanpa Kategori',
-                  instructor: course.instructor ?? 'Tidak diketahui',
-                }} 
-              />
+              <div key={course.id} className="border-4 border-border shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] bg-card flex flex-col h-full rounded-none overflow-hidden transition-all hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_0px_rgba(26,26,26,1)]">
+                <div className="relative w-full h-48 border-b-4 border-border">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={course.thumbnailUrl || ""}
+                    alt={course.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-primary text-primary-foreground border-2 border-border shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] rounded-none font-bold px-3 py-1 text-xs">
+                      {course.category || 'Tanpa Kategori'}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-6 flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold leading-tight mb-2">
+                    {course.title}
+                  </h3>
+                  <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-6">
+                    Oleh {course.instructor || 'Tidak diketahui'}
+                  </p>
+                  
+                  <div className="mt-auto pt-6 border-t-4 border-border border-dashed">
+                    <Link href={`/learn/${course.id}`}>
+                      <Button className="w-full rounded-none border-2 border-border shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] font-bold text-md hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)] transition-all bg-secondary text-secondary-foreground hover:bg-secondary/90">
+                        Mulai Belajar
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         )}

@@ -5,8 +5,11 @@ import { courses, categories, users } from "@/db/schema";
 import { eq, desc } from "drizzle-orm";
 import Link from "next/link";
 
-export default async function CoursesPage() {
-  const allCourses = await db
+export default async function CoursesPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const params = await searchParams;
+  const activeCategory = params.category;
+
+  let query = db
     .select({
       id: courses.id,
       title: courses.title,
@@ -17,8 +20,13 @@ export default async function CoursesPage() {
     })
     .from(courses)
     .leftJoin(categories, eq(courses.categoryId, categories.id))
-    .leftJoin(users, eq(courses.instructorId, users.id))
-    .orderBy(desc(courses.createdAt));
+    .leftJoin(users, eq(courses.instructorId, users.id));
+
+  if (activeCategory) {
+    query = query.where(eq(categories.name, activeCategory)) as any;
+  }
+
+  const allCourses = await query.orderBy(desc(courses.createdAt));
 
   const allCategories = await db.select().from(categories).orderBy(categories.name);
 
@@ -40,13 +48,17 @@ export default async function CoursesPage() {
           <div>
             <h3 className="text-lg font-bold mb-4 uppercase tracking-wider border-b-2 border-border pb-2">Kategori</h3>
             <div className="flex flex-wrap gap-2">
-              <Badge variant="outline" className="border-2 border-border font-bold bg-primary text-primary-foreground rounded-none shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
-                Semua Kategori
-              </Badge>
-              {allCategories.map((cat) => (
-                <Badge key={cat.id} variant="outline" className="border-2 border-border font-bold hover:bg-muted rounded-none cursor-pointer">
-                  {cat.name}
+              <Link href="/courses">
+                <Badge variant="outline" className={`border-2 border-border font-bold rounded-none cursor-pointer ${!activeCategory ? 'bg-primary text-primary-foreground shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]' : 'hover:bg-muted'}`}>
+                  Semua Kategori
                 </Badge>
+              </Link>
+              {allCategories.map((cat) => (
+                <Link key={cat.id} href={`/courses?category=${encodeURIComponent(cat.name)}`}>
+                  <Badge variant="outline" className={`border-2 border-border font-bold rounded-none cursor-pointer ${activeCategory === cat.name ? 'bg-primary text-primary-foreground shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]' : 'hover:bg-muted'}`}>
+                    {cat.name}
+                  </Badge>
+                </Link>
               ))}
             </div>
           </div>
