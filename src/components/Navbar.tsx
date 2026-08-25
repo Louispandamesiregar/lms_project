@@ -1,7 +1,18 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/store/cartStore";
 
 export function Navbar() {
+  const [mounted, setMounted] = useState(false);
+  const { items } = useCartStore();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <nav className="border-b-4 border-border bg-background px-6 py-4 flex items-center justify-between">
       <div className="flex items-center gap-6">
@@ -20,7 +31,7 @@ export function Navbar() {
       <div className="flex items-center gap-4">
         <Link href="/cart">
           <Button variant="outline" className="border-2 shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)] transition-all">
-            Keranjang
+            Keranjang {mounted && items.length > 0 && `(${items.length})`}
           </Button>
         </Link>
         <Link href="/login">
