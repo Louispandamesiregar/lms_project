@@ -44,7 +44,7 @@ export function Navbar({ user }: { user: User | null }) {
               </Button>
             </Link>
             <form action={logout}>
-              <Button variant="destructive" className="border-2 border-border shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)] transition-all">
+              <Button type="submit" variant="destructive" className="border-2 border-border shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)] transition-all">
                 Keluar
               </Button>
             </form>
