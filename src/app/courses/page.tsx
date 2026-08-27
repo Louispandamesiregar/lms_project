@@ -42,13 +42,13 @@ export default async function CoursesPage({ searchParams }: { searchParams: Prom
             </p>
           </div>
 
-          {/* Decorative Retro Stickers - Aligned in a row */}
-          <div className="hidden lg:flex items-center gap-2 xl:gap-6 z-20 pointer-events-none">
-            <img src="/images/desain grafis.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
-            <img src="/images/fotografi.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
-            <img src="/images/seni lukis.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
-            <img src="/images/seni musik beatmaking.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
-            <img src="/images/seni musik.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
+          {/* Decorative Retro Stickers - Aligned in a row, overlapping and larger */}
+          <div className="hidden lg:flex items-center -space-x-16 xl:-space-x-20 z-20 pointer-events-none">
+            <img src="/images/desain grafis.png" alt="" className="w-48 h-48 xl:w-60 xl:h-60 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] relative z-10" />
+            <img src="/images/fotografi.png" alt="" className="w-48 h-48 xl:w-60 xl:h-60 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] relative z-20" />
+            <img src="/images/seni lukis.png" alt="" className="w-48 h-48 xl:w-60 xl:h-60 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] relative z-30" />
+            <img src="/images/seni musik beatmaking.png" alt="" className="w-48 h-48 xl:w-60 xl:h-60 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] relative z-40" />
+            <img src="/images/seni musik.png" alt="" className="w-48 h-48 xl:w-60 xl:h-60 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] relative z-50" />
           </div>
         </div>
       </div>
