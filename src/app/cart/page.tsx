@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cartStore";
 import { processCheckout } from "./actions";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export default function CartPage() {
   const [mounted, setMounted] = useState(false);
@@ -50,10 +50,11 @@ export default function CartPage() {
         {items.length === 0 ? (
           <div className="text-center py-20 border-4 border-dashed border-border bg-muted/30">
             <h3 className="text-2xl font-bold mb-4">Keranjang Anda masih kosong.</h3>
-            <Link href="/courses">
-              <Button size="lg" className="border-4 border-border shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(26,26,26,1)] rounded-none text-lg font-bold transition-all">
-                Cari Kelas Seni
-              </Button>
+            <Link 
+              href="/courses"
+              className={buttonVariants({ size: "lg", className: "border-4 border-border shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(26,26,26,1)] rounded-none text-lg font-bold transition-all" })}
+            >
+              Cari Kelas Seni
             </Link>
           </div>
         ) : (
