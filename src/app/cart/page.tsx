@@ -13,17 +13,18 @@ export default function CartPage() {
   const { items, removeCourse, clearCart, getTotal } = useCartStore();
   const [checkoutStatus, setCheckoutStatus] = useState<"idle" | "success">("idle");
 
+  const [isProcessing, setIsProcessing] = useState(false);
+  const router = useRouter();
+
   // Hydration fix for Zustand persist
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
   if (!mounted) {
     return <div className="min-h-screen bg-background p-10 font-bold">Loading Cart...</div>;
   }
-
-  const [isProcessing, setIsProcessing] = useState(false);
-  const router = useRouter();
 
   const handleCheckout = async () => {
     setIsProcessing(true);

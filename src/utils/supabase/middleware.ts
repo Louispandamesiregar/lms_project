@@ -15,7 +15,7 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({
             request,
           })
@@ -52,8 +52,34 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // TODO: Add Role-based protection later here (e.g. if trying to access /admin but role is not ADMIN)
-  // To do this, we need to fetch the role from the public.users table or from user metadata.
+  // Role-based protection
+  if (user && isProtectedRoute) {
+    const { data: userData } = await supabase
+      .from('users')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+
+    const userRole = userData?.role || 'STUDENT'
+
+    const isAdminRoute = request.nextUrl.pathname.startsWith('/admin')
+    const isInstructorRoute = request.nextUrl.pathname.startsWith('/instructor')
+
+    if (isAdminRoute && userRole !== 'ADMIN') {
+      const url = request.nextUrl.clone()
+      url.pathname = '/'
+      return NextResponse.redirect(url)
+    }
+
+    if (isInstructorRoute && userRole !== 'INSTRUCTOR' && userRole !== 'ADMIN') {
+      // Allowing admin to access instructor route just in case, or just strict instructor. Let's make it strict according to PRD or fallback to index
+      if (userRole !== 'INSTRUCTOR') {
+         const url = request.nextUrl.clone()
+         url.pathname = '/'
+         return NextResponse.redirect(url)
+      }
+    }
+  }
 
   return supabaseResponse
 }

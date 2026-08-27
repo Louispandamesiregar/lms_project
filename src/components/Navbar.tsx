@@ -14,6 +14,7 @@ export function Navbar({ user }: { user: User | null }) {
   const { items } = useCartStore();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
