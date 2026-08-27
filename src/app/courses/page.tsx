@@ -33,7 +33,7 @@ export default async function CoursesPage({ searchParams }: { searchParams: Prom
   return (
     <div className="flex flex-col min-h-screen bg-background pb-20 relative overflow-hidden">
       {/* Header */}
-      <div className="bg-destructive text-destructive-foreground border-b-4 border-border py-12 px-6 relative z-10 overflow-visible">
+      <div className="bg-destructive text-destructive-foreground border-b-4 border-border py-12 px-6 relative z-10 overflow-hidden">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative">
           <div className="flex-1 z-10">
             <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">Katalog Kelas</h1>
@@ -42,22 +42,13 @@ export default async function CoursesPage({ searchParams }: { searchParams: Prom
             </p>
           </div>
 
-          {/* Decorative Retro Stickers Cluster - Positioned absolutely on the right so it doesn't affect header height */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 hidden md:block pointer-events-none z-20">
-            {/* Base Image */}
-            <img src="/images/desain grafis.png" alt="" className="absolute -top-32 right-10 rotate-6 w-48 h-48 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
-            
-            {/* Slightly left and lower */}
-            <img src="/images/fotografi.png" alt="" className="absolute top-0 right-40 -rotate-12 w-56 h-56 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
-            
-            {/* Lower Right */}
-            <img src="/images/seni lukis.png" alt="" className="absolute top-16 -right-10 -rotate-6 w-64 h-64 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
-            
-            {/* Middle Left */}
-            <img src="/images/seni musik beatmaking.png" alt="" className="absolute top-32 right-48 rotate-12 w-52 h-52 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
-            
-            {/* Top Center-ish */}
-            <img src="/images/seni musik.png" alt="" className="absolute -top-10 right-32 -rotate-6 w-40 h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
+          {/* Decorative Retro Stickers - Aligned in a row */}
+          <div className="hidden lg:flex items-center gap-2 xl:gap-6 z-20 pointer-events-none">
+            <img src="/images/desain grafis.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
+            <img src="/images/fotografi.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
+            <img src="/images/seni lukis.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
+            <img src="/images/seni musik beatmaking.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
+            <img src="/images/seni musik.png" alt="" className="w-32 h-32 xl:w-40 xl:h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)]" />
           </div>
         </div>
       </div>
