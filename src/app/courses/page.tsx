@@ -31,9 +31,18 @@ export default async function CoursesPage({ searchParams }: { searchParams: Prom
   const allCategories = await db.select().from(categories).orderBy(categories.name);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background pb-20">
+    <div className="flex flex-col min-h-screen bg-background pb-20 relative overflow-hidden">
+      {/* Decorative Retro Stickers (Hidden on small screens to avoid clutter) */}
+      <div className="hidden lg:block absolute inset-0 pointer-events-none z-0">
+        <img src="/images/desain grafis.png" alt="" className="absolute top-10 right-10 -rotate-12 w-32 h-32 object-contain drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-bounce" style={{ animationDuration: '4s' }} />
+        <img src="/images/fotografi.png" alt="" className="absolute bottom-40 left-5 rotate-6 w-40 h-40 object-contain drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-pulse" style={{ animationDuration: '3s' }} />
+        <img src="/images/seni lukis.png" alt="" className="absolute top-1/2 -right-5 rotate-12 w-48 h-48 object-contain drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-bounce" style={{ animationDuration: '5s' }} />
+        <img src="/images/seni musik beatmaking.png" alt="" className="absolute top-52 -left-10 -rotate-12 w-36 h-36 object-contain drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-pulse" style={{ animationDuration: '4.5s' }} />
+        <img src="/images/seni musik.png" alt="" className="absolute bottom-10 right-20 -rotate-6 w-32 h-32 object-contain drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-bounce" style={{ animationDuration: '3.5s' }} />
+      </div>
+
       {/* Header */}
-      <div className="bg-destructive text-destructive-foreground border-b-4 border-border py-12 px-6">
+      <div className="bg-destructive text-destructive-foreground border-b-4 border-border py-12 px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">Katalog Kelas</h1>
           <p className="text-xl font-medium max-w-2xl">
