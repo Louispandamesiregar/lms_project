@@ -32,31 +32,33 @@ export default async function CoursesPage({ searchParams }: { searchParams: Prom
 
   return (
     <div className="flex flex-col min-h-screen bg-background pb-20 relative overflow-hidden">
-      {/* Decorative Retro Stickers - Using fixed positioning to frame the viewport */}
-      <div className="hidden lg:block fixed inset-0 pointer-events-none z-50 overflow-hidden">
-        {/* Top Right */}
-        <img src="/images/desain grafis.png" alt="" className="absolute top-16 -right-10 rotate-12 w-56 h-56 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] drop-shadow-[6px_6px_0px_rgba(26,26,26,1)] animate-[bounce_4s_infinite]" />
-        
-        {/* Bottom Left */}
-        <img src="/images/fotografi.png" alt="" className="absolute bottom-10 -left-8 -rotate-6 w-64 h-64 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] drop-shadow-[6px_6px_0px_rgba(26,26,26,1)] animate-[pulse_5s_infinite]" />
-        
-        {/* Middle Right */}
-        <img src="/images/seni lukis.png" alt="" className="absolute top-1/2 -translate-y-1/2 -right-16 -rotate-12 w-60 h-60 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] drop-shadow-[6px_6px_0px_rgba(26,26,26,1)] animate-[bounce_6s_infinite]" />
-        
-        {/* Top Left */}
-        <img src="/images/seni musik beatmaking.png" alt="" className="absolute top-32 -left-16 rotate-6 w-48 h-48 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] drop-shadow-[6px_6px_0px_rgba(26,26,26,1)] animate-[pulse_4s_infinite]" />
-        
-        {/* Bottom Right */}
-        <img src="/images/seni musik.png" alt="" className="absolute bottom-5 right-20 rotate-6 w-52 h-52 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] drop-shadow-[6px_6px_0px_rgba(26,26,26,1)] animate-[bounce_5s_infinite]" />
-      </div>
-
       {/* Header */}
-      <div className="bg-destructive text-destructive-foreground border-b-4 border-border py-12 px-6 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">Katalog Kelas</h1>
-          <p className="text-xl font-medium max-w-2xl">
-            Temukan kelas seni yang sesuai dengan minatmu dan pelajari teknik baru dari ahlinya.
-          </p>
+      <div className="bg-destructive text-destructive-foreground border-b-4 border-border py-12 px-6 relative z-10 overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative">
+          <div className="flex-1 z-10">
+            <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">Katalog Kelas</h1>
+            <p className="text-xl font-medium max-w-2xl">
+              Temukan kelas seni yang sesuai dengan minatmu dan pelajari teknik baru dari ahlinya.
+            </p>
+          </div>
+
+          {/* Decorative Retro Stickers Cluster - Positioned on the right side of the header */}
+          <div className="relative w-full md:w-96 h-48 md:h-64 shrink-0 hidden md:block">
+            {/* Base Image */}
+            <img src="/images/desain grafis.png" alt="" className="absolute top-0 right-10 rotate-6 w-32 h-32 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-[bounce_4s_infinite]" />
+            
+            {/* Slightly left and lower */}
+            <img src="/images/fotografi.png" alt="" className="absolute top-12 right-40 -rotate-12 w-36 h-36 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-[pulse_5s_infinite]" />
+            
+            {/* Lower Right */}
+            <img src="/images/seni lukis.png" alt="" className="absolute bottom-4 right-0 -rotate-6 w-40 h-40 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-[bounce_5s_infinite]" />
+            
+            {/* Middle Left */}
+            <img src="/images/seni musik beatmaking.png" alt="" className="absolute bottom-0 right-48 rotate-12 w-32 h-32 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-[pulse_4s_infinite]" />
+            
+            {/* Top Center-ish */}
+            <img src="/images/seni musik.png" alt="" className="absolute -top-4 right-32 -rotate-6 w-28 h-28 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] drop-shadow-[4px_4px_0px_rgba(26,26,26,1)] animate-[bounce_3.5s_infinite]" />
+          </div>
         </div>
       </div>
 
